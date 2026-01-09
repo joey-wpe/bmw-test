@@ -1,0 +1,101 @@
+/* @tailwindcss */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "BMW TypeNext";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/BMWTypeNextPro-Regular.woff2) format("woff2");
+  }
+  @font-face {
+    font-family: "BMW TypeNext";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(/fonts/BMWTypeNextPro-Light.woff2) format("woff2");
+  }
+  @font-face {
+    font-family: "BMW TypeNext";
+    font-style: normal;
+    font-weight: 500;
+    font-display: optional;
+    src: url(/fonts/BMWTypeNextPro-Medium.woff2) format("woff2");
+  }
+  @font-face {
+    font-family: "BMW TypeNext";
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional;
+    src: url(/fonts/BMWTypeNextPro-Bold.woff2) format("woff2");
+  }
+  b,
+  strong {
+    @apply font-bold;
+  }
+}
+
+:root {
+  font-size: 20px;
+}
+
+html,
+body {
+  @apply m-0 bg-black p-0 text-sm text-white;
+}
+
+h1 {
+  @apply text-md font-light md:text-xl;
+}
+h2 {
+  @apply text-md font-light md:text-xl;
+}
+h3 {
+  @apply text-base font-light md:text-lg;
+}
+h4 {
+  @apply font-light md:text-base;
+}
+h5,
+h6 {
+  @apply font-light;
+}
+p,
+ul,
+ol {
+  @apply font-light;
+}
+a {
+  @apply text-inherit decoration-1 underline-offset-2 hover:underline;
+}
+a.remove-underline {
+  @apply no-underline hover:no-underline;
+}
+main a,
+p a {
+  @apply underline hover:text-gray-400;
+}
+
+* {
+  @apply box-border;
+}
+
+.container {
+  @apply ml-auto mr-auto w-full max-w-screen-2xl;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center bg-blue px-[12px] font-bold text-white no-underline transition-colors hover:bg-blue-900 hover:text-white hover:no-underline;
+}
+
+.hero-img-overlay {
+  @apply before:absolute before:bottom-[0] before:z-[1] before:hidden before:h-full before:max-h-[416px] before:w-full before:bg-gradient-to-t before:from-black before:from-[22%] before:to-transparent before:content-[''] md:absolute md:before:block;
+}
+
+.wysiwyg ul,
+.wysiwyg ol {
+  @apply list-disc pl-4;
+}
