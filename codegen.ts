@@ -2,7 +2,7 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 import "dotenv/config";
 
 const config: CodegenConfig = {
-  schema: process.env.SCHEMA_PATH,
+  schema: process.env.SCHEMA_PATH || "https://bmwpdsdev.wpenginepowered.com/graphql",
   documents: [
     "src/**/*.{tsx,ts}",
     "node_modules/@faustwp/blocks/dist/mjs/blocks/*.js",

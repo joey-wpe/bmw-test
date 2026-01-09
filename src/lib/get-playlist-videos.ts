@@ -13,9 +13,23 @@ export async function fetchPlaylistVideos(playlistId: string) {
     return;
   }
 
+  interface PlaylistItem {
+    snippet: {
+      resourceId: { videoId: string };
+      title: string;
+      thumbnails: {
+        maxres?: { url: string };
+        standard?: { url: string };
+        high?: { url: string };
+        medium?: { url: string };
+        default?: { url: string };
+      };
+    };
+  }
+
   const data = await res.json();
 
-  const videos = data.items.map((item: any) => ({
+  const videos = data.items.map((item: PlaylistItem) => ({
     id: item.snippet.resourceId.videoId,
     title: item.snippet.title,
     thumbnail:

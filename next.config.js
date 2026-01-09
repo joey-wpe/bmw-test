@@ -4,9 +4,6 @@ const { withFaust, getWpHostname } = require("@faustwp/core");
  * @type {import('next').NextConfig}
  **/
 module.exports = withFaust({
-  experimental: {
-    optimizeCss: true,
-  },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },

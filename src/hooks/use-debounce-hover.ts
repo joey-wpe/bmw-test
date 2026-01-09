@@ -25,7 +25,7 @@ export function useDebounceMotionHover(delay = 200) {
   }, [debouncedSetHovering]);
 
   const handleMouseEnter: MotionHoverHandler = useCallback(
-    (event, info) => {
+    (_event, _info) => {
       isHoveringRef.current = true;
       debouncedSetHovering(true);
     },
@@ -33,7 +33,7 @@ export function useDebounceMotionHover(delay = 200) {
   );
 
   const handleMouseLeave: MotionHoverHandler = useCallback(
-    (event, info) => {
+    (_event, _info) => {
       isHoveringRef.current = false;
       debouncedSetHovering(false);
     },
