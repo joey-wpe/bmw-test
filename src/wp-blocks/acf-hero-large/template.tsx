@@ -26,11 +26,12 @@ export function AcfHeroLarge(props: AcfHeroLarge) {
             fill
             className="object-cover object-center"
             priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
-            quality={90}
+            sizes="(max-width: 435px) 435px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1400px"
+            quality={80}
             fetchPriority="high"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            placeholder="empty"
+            loading="eager"
+            decoding="sync"
           />
         </div>
       )}
