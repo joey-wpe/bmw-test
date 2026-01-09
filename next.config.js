@@ -10,7 +10,7 @@ module.exports = withFaust({
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
-  webpack(config) {
+  webpack(config, { dev, isServer }) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.(".svg")
@@ -35,6 +35,39 @@ module.exports = withFaust({
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
 
+    // Optimize bundle splitting for better caching
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          ...config.optimization.splitChunks,
+          chunks: 'all',
+          cacheGroups: {
+            ...config.optimization.splitChunks.cacheGroups,
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+            motion: {
+              test: /[\\/]node_modules[\\/](motion|framer-motion)[\\/]/,
+              name: 'motion',
+              chunks: 'async',
+              priority: 20,
+            },
+            apollo: {
+              test: /[\\/]node_modules[\\/]@apollo[\\/]/,
+              name: 'apollo',
+              chunks: 'all',
+              priority: 15,
+            }
+          }
+        }
+      };
+    }
+
     return config;
   },
   images: {
@@ -43,6 +76,48 @@ module.exports = withFaust({
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000,
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          }
+        ]
+      },
+      {
+        source: '/fonts/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control', 
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      {
+        source: '/img/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=31536000'
+          }
+        ]
+      }
+    ]
   },
   trailingSlash: true,
 });

@@ -9,7 +9,10 @@ import { useRouter } from "next/router";
 
 const MotionConfig = dynamic(
   () => import("motion/react").then((mod) => mod.MotionConfig),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => null
+  }
 );
 
 export default function MyApp({ Component, pageProps }: AppProps) {
